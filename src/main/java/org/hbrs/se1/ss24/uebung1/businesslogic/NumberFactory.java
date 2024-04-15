@@ -1,8 +1,4 @@
-package org.hbrs.se1.ss24.uebung1.client;
-
-import org.hbrs.se1.ss24.uebung1.businesslogic.GermanFormatNumberTransformer;
-import org.hbrs.se1.ss24.uebung1.businesslogic.NumberTransformer;
-import org.hbrs.se1.ss24.uebung1.businesslogic.RomanNumberTransformer;
+package org.hbrs.se1.ss24.uebung1.businesslogic;
 
 import java.util.Dictionary;
 import java.util.Hashtable;
