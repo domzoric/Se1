@@ -4,4 +4,7 @@ public interface NumberTransformer {
     String transformNumber(int number);
 
     String getTransformerType();
+
+    String ErrorMessage = "Zahl außerhalb des Wertebereich";
+
 }
