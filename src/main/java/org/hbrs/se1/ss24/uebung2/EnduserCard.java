@@ -31,4 +31,8 @@ public class EnduserCard implements PersonCard {
     public boolean isHungry() {
         return isHungry;
     }
+
+    public String toString() {
+        return "ID: " + id + ", Vorname: " + firstName + ", Nachname: " + lastName + ", isHungry " + isHungry;
+    }
 }

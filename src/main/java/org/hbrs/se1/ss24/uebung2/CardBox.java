@@ -19,6 +19,8 @@ public class CardBox {
         cards.add(personCard);
     }
 
+    // Beantwortung Frage FA2
+    // Bei einer Rückgabe via Exception ist dem Nutzer bewusst das ein Fehler kommt
     public String deletePersonCard(int id) {
         for (PersonCard card : cards) {
             if (card.getId() == id) {
@@ -31,13 +33,7 @@ public class CardBox {
 
     public void showContent() {
         for (PersonCard card : cards) {
-            String output = "ID = " + card.getId() + ", Vorname = " + card.getFirstName() + ", Nachname = " + card.getLastName();
-            if (card instanceof DeveloperCard) {
-                output += ", hasEnoughCoffee = " + ((DeveloperCard) card).hasEnoughCoffee();
-            } else if (card instanceof EnduserCard) {
-                output += ", isHungry = " + ((EnduserCard) card).isHungry();
-            }
-            System.out.println(output);
+            System.out.println(card.toString());
         }
     }
 

@@ -31,4 +31,8 @@ public class DeveloperCard implements PersonCard {
     public boolean hasEnoughCoffee() {
         return hasEnoughCoffee;
     }
+
+    public String toString() {
+        return "ID: " + id + ", Vorname: " + firstName + ", Nachname: " + lastName + ", hasEnoughCoffee " + hasEnoughCoffee;
+    }
 }
