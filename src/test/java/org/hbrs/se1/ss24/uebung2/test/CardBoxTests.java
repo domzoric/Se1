@@ -8,46 +8,47 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
 public class CardBoxTests {
+    private CardBox cardBox = null;
+
+    @BeforeEach
+    void setUp() {
+        this.cardBox = new CardBox();
+    }
 
     @Test
-    void testAddPersonCard() {
-        CardBox cardBox = new CardBox();
+    void testCardBox() {
+        EnduserCard endUserCard1 = new EnduserCard("John", "Doe", 1, true);
+        EnduserCard enduserCard2 = new EnduserCard("Jane", "Doe", 2, false);
+        DeveloperCard developerCard1 = new DeveloperCard("Jim", "Jackson", 3, false);
+        DeveloperCard developerCard2 = new DeveloperCard("Anna", "Müller", 4, true);
+
         try {
-            cardBox.addPersonCard(new EnduserCard("John", "Doe", 1, true));
-            cardBox.addPersonCard(new DeveloperCard("Jane", "Smith", 2, false));
+            cardBox.addPersonCard(endUserCard1);
+            assertEquals(cardBox.size(), 1);
+            assertEquals(cardBox.deletePersonCard(-1), "Die ID -1 gibt es nicht");
+
+            cardBox.addPersonCard(enduserCard2);
+            cardBox.addPersonCard(developerCard1);
+            cardBox.addPersonCard(developerCard2);
+            assertEquals(cardBox.size(), 4);
+
+            assertEquals(cardBox.deletePersonCard(3), "ID 3 erfolgreich entfernt");
+            assertEquals(cardBox.size(), 3);
+            assertEquals(cardBox.deletePersonCard(3), "Die ID 3 gibt es nicht");
+            assertEquals(cardBox.deletePersonCard(15), "Die ID 15 gibt es nicht");
+            assertEquals(cardBox.size(), 3);
+
+            cardBox.showContent();
         } catch (CardBoxException e) {
-            fail("Adding valid PersonCard objects should not throw an exception");
+            fail("Exception mit unerwartetem Ergebnis: " + e.getMessage());
         }
 
-        assertThrows(CardBoxException.class, () -> cardBox.addPersonCard(new EnduserCard("Alice", "Johnson", 1, true)));
-    }
-
-    @Test
-    void testDeletePersonCard() {
-        CardBox cardBox = new CardBox();
-        cardBox.addPersonCard(new EnduserCard("John", "Doe", 1, true));
-
-        assertEquals("Objekt mit ID 1 wurde entfernt", cardBox.deletePersonCard(1));
-        assertEquals("Kein Objekt mit ID 2 gefunden", cardBox.deletePersonCard(2));
-    }
-
-    @Test
-    void testShowContent() {
-        CardBox cardBox = new CardBox();
-        cardBox.addPersonCard(new EnduserCard("John", "Doe", 1, true));
-        cardBox.addPersonCard(new DeveloperCard("Jane", "Smith", 2, false));
-
-        cardBox.showContent(); // Should print content to console
-    }
-
-    @Test
-    void testSize() {
-        CardBox cardBox = new CardBox();
-        assertEquals(0, cardBox.size());
-
-        cardBox.addPersonCard(new EnduserCard("John", "Doe", 1, true));
-        cardBox.addPersonCard(new DeveloperCard("Jane", "Smith", 2, false));
-        assertEquals(2, cardBox.size());
+        CardBoxException thrown = assertThrows(CardBoxException.class, () -> cardBox.addPersonCard(endUserCard1));
+        CardBoxException thrown2 = assertThrows(CardBoxException.class, () -> cardBox.addPersonCard(null));
     }
 }

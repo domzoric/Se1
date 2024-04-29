@@ -3,41 +3,62 @@ package org.hbrs.se1.ss24.uebung2;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CardBox {
-    private List<PersonCard> cards;
+    private List<PersonCard> innerList = new ArrayList<>();
 
     public CardBox() {
-        cards = new ArrayList<>();
+    }
+
+    private boolean contains(PersonCard personCard) {
+        int id = personCard.getId();
+        for (PersonCard record : innerList) {
+            if (record.getId() == id) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void addPersonCard(PersonCard personCard) throws CardBoxException {
-        for (PersonCard card : cards) {
-            if (card.getId() == personCard.getId()) {
-                throw new CardBoxException("Das CardBox-Objekt mit der ID " + personCard.getId() + " ist bereits vorhanden");
-            }
+        if (personCard == null) {
+            throw new CardBoxException(0);
         }
-        cards.add(personCard);
+        if (contains(personCard)) {
+            CardBoxException e = new CardBoxException(personCard.getId());
+            throw e;
+        }
+        innerList.add(personCard);
     }
 
-    // Beantwortung Frage FA2
-    // Bei einer Rückgabe via Exception ist dem Nutzer bewusst das ein Fehler kommt
-    public String deletePersonCard(int id) {
-        for (PersonCard card : cards) {
-            if (card.getId() == id) {
-                cards.remove(card);
-                return "Objekt mit ID " + id + " wurde entfernt";
+    private PersonCard getPersonCard(int id) {
+        for (PersonCard record : innerList) {
+            if (id == record.getId()) {
+                return record;
             }
         }
-        return "Kein Objekt mit ID " + id + " gefunden";
+        return null;
+    }
+
+    public String deletePersonCard(int id) {
+        PersonCard personCard = getPersonCard(id);
+        if (personCard == null) {
+            return "Die ID " + id + " gibt es nicht";
+        } else {
+            innerList.remove(personCard);
+            return "ID " + id + " erfolgreich entfernt";
+        }
     }
 
     public void showContent() {
-        for (PersonCard card : cards) {
-            System.out.println(card.toString());
+        for (PersonCard personCard : innerList) {
+            System.out.println(personCard.toString());
         }
     }
 
     public int size() {
-        return cards.size();
+        return innerList.size();
     }
 }

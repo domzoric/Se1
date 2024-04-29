@@ -1,38 +1,19 @@
 package org.hbrs.se1.ss24.uebung2;
 
-public class DeveloperCard implements PersonCard {
-    private String firstName;
-    private String lastName;
-    private int id;
-    private boolean hasEnoughCoffee;
+public class DeveloperCard extends AbstractPersonCard {
+    private boolean enoughCoffee;
 
-    public DeveloperCard(String firstName, String lastName, int id, boolean hasEnoughCoffee) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.id = id;
-        this.hasEnoughCoffee = hasEnoughCoffee;
-    }
-
-    @Override
-    public String getFirstName() {
-        return firstName;
-    }
-
-    @Override
-    public String getLastName() {
-        return lastName;
-    }
-
-    @Override
-    public int getId() {
-        return id;
+    public DeveloperCard(String firstName, String lastName, int id, boolean enoughCoffee) {
+        super(firstName, lastName, id);
+        this.enoughCoffee = enoughCoffee;
     }
 
     public boolean hasEnoughCoffee() {
-        return hasEnoughCoffee;
+        return enoughCoffee;
     }
 
+    @Override
     public String toString() {
-        return "ID: " + id + ", Vorname: " + firstName + ", Nachname: " + lastName + ", hasEnoughCoffee " + hasEnoughCoffee;
+        return super.toString() + ", hasEnoughCoffee = " + enoughCoffee;
     }
 }
