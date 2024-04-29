@@ -1,5 +1,6 @@
 package org.hbrs.se1.ss24.uebung3;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,9 +8,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CardBox {
+    private static CardBox instance = null;
     private List<PersonCard> innerList = new ArrayList<>();
 
     public CardBox() {
+    }
+
+    public static CardBox getInstance() {
+        if (instance == null) {
+            instance = new CardBox();
+        }
+        return instance;
     }
 
     private boolean contains(PersonCard personCard) {
@@ -60,5 +69,25 @@ public class CardBox {
 
     public int size() {
         return innerList.size();
+    }
+
+    public void save() throws CardboxStorageException {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("cardbox.ser"))) {
+            oos.writeObject(innerList);
+        } catch (IOException e) {
+            throw new CardboxStorageException("Fehler beim Speichern der CardBox: " + e.getMessage());
+        }
+    }
+
+    public void load() throws CardboxStorageException {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("cardbox.ser"))) {
+            innerList = (List<PersonCard>) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new CardboxStorageException("Fehler beim Laden der CardBox: " + e.getMessage());
+        }
+    }
+
+    public List<PersonCard> getCurrentList() {
+        return innerList;
     }
 }
