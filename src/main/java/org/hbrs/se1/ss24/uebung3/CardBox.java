@@ -11,9 +11,6 @@ public class CardBox {
     private static CardBox instance = null;
     private List<PersonCard> innerList = new ArrayList<>();
 
-    public CardBox() {
-    }
-
     public static CardBox getInstance() {
         if (instance == null) {
             instance = new CardBox();
@@ -58,12 +55,6 @@ public class CardBox {
         } else {
             innerList.remove(personCard);
             return "ID " + id + " erfolgreich entfernt";
-        }
-    }
-
-    public void showContent() {
-        for (PersonCard personCard : innerList) {
-            System.out.println(personCard.toString());
         }
     }
 
