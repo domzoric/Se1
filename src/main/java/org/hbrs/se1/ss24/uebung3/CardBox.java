@@ -63,7 +63,7 @@ public class CardBox {
     }
 
     public void save() throws CardboxStorageException {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("cardbox.ser"))) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("./.cardbox", false))) {
             oos.writeObject(innerList);
         } catch (IOException e) {
             throw new CardboxStorageException("Fehler beim Speichern der CardBox: " + e.getMessage());
@@ -71,8 +71,9 @@ public class CardBox {
     }
 
     public void load() throws CardboxStorageException {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("cardbox.ser"))) {
-            innerList = (List<PersonCard>) ois.readObject();
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("./.cardbox"))) {
+            innerList.clear();
+            innerList = new ArrayList<>((List<PersonCard>) ois.readObject());
         } catch (IOException | ClassNotFoundException e) {
             throw new CardboxStorageException("Fehler beim Laden der CardBox: " + e.getMessage());
         }

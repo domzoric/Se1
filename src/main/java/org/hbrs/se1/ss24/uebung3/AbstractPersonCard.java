@@ -1,6 +1,8 @@
 package org.hbrs.se1.ss24.uebung3;
 
-public abstract class AbstractPersonCard implements PersonCard {
+import java.io.Serializable;
+
+public abstract class AbstractPersonCard implements PersonCard, Serializable {
     private String firstName;
     private String lastName;
     private int id;
