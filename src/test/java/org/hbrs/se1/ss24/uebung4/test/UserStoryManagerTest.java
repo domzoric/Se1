@@ -73,10 +73,19 @@ class UserStoryManagerTest {
         ByteArrayInputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
 
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
         UserStoryManager.main(new String[0]);
 
         String output = outContent.toString();
+        System.out.println("Tatsächliche Ausgabe:");
+        System.out.println(output);
+
         assertTrue(output.contains("User Stories und Tasks wurden erfolgreich gespeichert."));
         assertTrue(output.contains("User Stories und Tasks wurden erfolgreich geladen."));
     }
+
+
+
 }
