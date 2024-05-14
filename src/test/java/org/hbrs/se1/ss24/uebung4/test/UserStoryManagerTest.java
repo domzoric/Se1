@@ -38,7 +38,7 @@ class UserStoryManagerTest {
         UserStoryManager.main(new String[0]);
 
         String output = outContent.toString();
-        assertTrue(output.contains("User Stories und Tasks wurden erfolgreich gespeichert."));
+        assertTrue(output.contains("User Story hinzugefügt."));
     }
 
     @Test

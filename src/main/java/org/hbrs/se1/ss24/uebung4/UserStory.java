@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-class UserStory {
+class UserStory implements Serializable {
     private int id;
     private String description;
     private String priority;
